@@ -41,9 +41,10 @@ const ProductsList = ({ products }: { products: Product[] }) => {
                   <p className="font-light text-muted-foreground">{name}</p>
                 </div>
                 <p className="ml-auto font-light tracking-wide mr-4">{formatCurrency(price)}</p>
-                <div className="bottom-8 right-8 absolute">
+                <div className="bottom-7 right-7 absolute">
                   <FavoriteToggleButton productId={productId} />
                 </div>
+                <div>6666</div>
               </CardContent>
             </Card>
           </article>
