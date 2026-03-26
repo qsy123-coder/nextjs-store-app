@@ -18,7 +18,7 @@ const ProductsGrid = ({ products }: { products: Product[] }) => {
             key={productId}
             className="group relative"
           >
-            <Link href={`/product/${productId}`}>
+            <Link href={`/products/${productId}`}>
               <Card className="group-hover:shadow transition-shadow duration-100 ">
                 <CardContent className="p-4">
                   <div className="relative h-64 md:h-48 overflow-hidden">

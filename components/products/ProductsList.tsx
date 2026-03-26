@@ -33,7 +33,7 @@ const ProductsList = ({ products }: { products: Product[] }) => {
                     fill
                     priority
                     sizes="(max-width-768px) 33vw,(max-width-1280px) 50vw,100vw"
-                    className=" w-full object-cover transform group-hover:scale-110  duration-500 transition-transform"
+                    className="rounded-xl w-full object-cover transform group-hover:scale-110  duration-500 transition-transform"
                   />
                 </div>
                 <div>
@@ -44,7 +44,6 @@ const ProductsList = ({ products }: { products: Product[] }) => {
                 <div className="bottom-7 right-7 absolute">
                   <FavoriteToggleButton productId={productId} />
                 </div>
-                <div>6666</div>
               </CardContent>
             </Card>
           </article>

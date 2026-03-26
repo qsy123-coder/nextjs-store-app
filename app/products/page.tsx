@@ -7,10 +7,10 @@ const ProductsPage = async ({
 }: {
   searchParams: Promise<{ layout?: string; search?: string }>;
 }) => {
-  const products = await fetchAllProducts();
   const params = await searchParams;
   const layout = params.layout || "grid";
   const search = params.search || "";
+  const products = await fetchAllProducts({ search });
   console.log(params);
   return (
     <ProductsContainer
