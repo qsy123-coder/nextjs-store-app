@@ -30,7 +30,7 @@ export const fetchSingleProduct = async (productId: string) => {
   });
 
   if (!singleProduct) {
-    redirect("/product");
+    redirect("/products");
   }
   return singleProduct;
 };

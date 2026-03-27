@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDebounce, useDebouncedCallback } from "use-debounce";
-
+import { toast } from "sonner";
 const NavSearch = () => {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
@@ -23,7 +23,9 @@ const NavSearch = () => {
     if (!searchParams.get("search")) {
       setSearch("");
     }
+    toast(`"${search}" has found`);
   }, [searchParams.get("search")]);
+
   return (
     <Input
       className="max-w-xs dark:bg-muted"
