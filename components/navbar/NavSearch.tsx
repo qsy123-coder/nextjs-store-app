@@ -23,7 +23,6 @@ const NavSearch = () => {
     if (!searchParams.get("search")) {
       setSearch("");
     }
-    toast(`"${search}" has found`);
   }, [searchParams.get("search")]);
 
   return (

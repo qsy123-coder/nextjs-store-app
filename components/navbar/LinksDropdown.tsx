@@ -13,10 +13,20 @@ import {
 import { links } from "@/utils/links";
 import Link from "next/link";
 import { LuAlignLeft } from "react-icons/lu";
-import { Show, SignInButton, SignOutButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import {
+  Show,
+  SignInButton,
+  SignOutButton,
+  SignUpButton,
+  useAuth,
+  UserButton,
+} from "@clerk/nextjs";
 import { Separator } from "../ui/separator";
 import UserIcon from "./UserIcon";
-const LinksDropdown = () => {
+import SignOutLink from "./SignOutLink";
+import { toast } from "sonner";
+import { auth } from "@clerk/nextjs/server";
+const LinksDropdown = ({ isAdmin }: { isAdmin: boolean }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -36,9 +46,7 @@ const LinksDropdown = () => {
       >
         <Show when="signed-out">
           <DropdownMenuItem asChild>
-            <SignInButton mode="modal">
-              <span className="capitalize">Sign in</span>
-            </SignInButton>
+            <SignInButton mode="modal">Log in</SignInButton>
           </DropdownMenuItem>
           <Separator />
           <DropdownMenuItem>
@@ -50,6 +58,7 @@ const LinksDropdown = () => {
 
         <Show when="signed-in">
           {links.map((link) => {
+            if (!isAdmin && link.label === "dashboard") return null;
             return (
               <DropdownMenuItem
                 key={link.href}
@@ -66,7 +75,7 @@ const LinksDropdown = () => {
           })}
           <Separator />
           <DropdownMenuItem>
-            <SignOutButton />
+            <SignOutLink />
           </DropdownMenuItem>
         </Show>
       </DropdownMenuContent>

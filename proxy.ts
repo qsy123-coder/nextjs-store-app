@@ -1,9 +1,19 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { auth, clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import { NextResponse } from "next/server";
 
 export default clerkMiddleware(async (auth, req) => {
+  const isProtectedRoute = createRouteMatcher(["/products(.*)", "about", "/"]);
+
   if (!isProtectedRoute(req)) await auth.protect();
+  const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
+  const { userId } = await auth();
+  const isAdminUser = userId === process.env.USER_ID;
+  if (isAdminRoute(req) && !isAdminUser) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
 });
-const isProtectedRoute = createRouteMatcher(["/products", "about", "/"]);
+
 export const config = {
   matcher: [
     // Skip Next.js internals and all static files, unless found in search params

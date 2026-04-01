@@ -6,10 +6,13 @@ import DarkMode from "./DarkMode";
 import SignOutLink from "./SignOutLink";
 import Container from "../global/Container";
 import NavSearch from "./NavSearch";
+import { auth } from "@clerk/nextjs/server";
 
-const Navbar = () => {
+const Navbar = async () => {
+  const { userId } = await auth(); // ← 在服务端获取 userId
+  const isAdmin = userId === process.env.USER_ID;
   return (
-    <nav className="border-b">
+    <nav className="shadow">
       <Container className="flex flex-col sm:flex-row sm:justify-between sm:items-center flex-wrap py-8 gap-4">
         <Logo />
         <Suspense>
@@ -18,7 +21,7 @@ const Navbar = () => {
         <div className="flex gap-4 items-center justify-center">
           <CartButton />
           <DarkMode />
-          <LinksDropdown />
+          <LinksDropdown isAdmin={isAdmin} />
         </div>
       </Container>
     </nav>
