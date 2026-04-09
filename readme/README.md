@@ -2617,8 +2617,8 @@ try {
 ### Create Bucket, Setup Policy and API Keys
 
 ```env
-SUPABASE_URL=
-SUPABASE_KEY=
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
 ```
 
 ### Setup Supabase
@@ -2636,8 +2636,8 @@ const bucket = "your-bucket-name";
 
 // Create a single supabase client for interacting with your database
 export const supabase = createClient(
-  process.env.SUPABASE_URL as string,
-  process.env.SUPABASE_KEY as string,
+  process.env.NEXT_PUBLIC_SUPABASE_URL as string,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string,
 );
 
 export const uploadImage = async (image: File) => {
