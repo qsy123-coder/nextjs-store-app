@@ -3,16 +3,14 @@ import { Checkbox } from "../ui/checkbox";
 type CheckBoxInputProps = {
   name: string;
   label: string;
-  defaultValue: boolean;
+  defaultValue?: boolean;
 };
-const CheckBoxInput = ({ name, label, defaultValue = false }: CheckBoxInputProps) => {
+const CheckBoxInput = ({ name, label }: CheckBoxInputProps) => {
   return (
     <div className="flex items-center space-x-2 mb-4">
       <Checkbox
         id={name}
         name={name}
-        checked
-        required
       />
       <label
         htmlFor={name}

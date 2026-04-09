@@ -157,7 +157,10 @@ import { VscCode } from "react-icons/vsc";
 
 function Logo() {
   return (
-    <Button size="icon" asChild>
+    <Button
+      size="icon"
+      asChild
+    >
       <Link href="/">
         <VscCode className="w-6 h-6" />
       </Link>
@@ -175,7 +178,11 @@ import { Input } from "../ui/input";
 
 function NavSearch() {
   return (
-    <Input type="search" placeholder="search product..." className="max-w-xs dark:bg-muted " />
+    <Input
+      type="search"
+      placeholder="search product..."
+      className="max-w-xs dark:bg-muted "
+    />
   );
 }
 export default NavSearch;
@@ -235,7 +242,10 @@ layout.tsx
 import Providers from "./providers";
 
 return (
-  <html lang="en" suppressHydrationWarning>
+  <html
+    lang="en"
+    suppressHydrationWarning
+  >
     <body className={inter.className}>
       <Providers>
         <Navbar />
@@ -276,7 +286,12 @@ import { ThemeProvider } from "./theme-provider";
 
 function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
       {children}
     </ThemeProvider>
   );
@@ -309,7 +324,10 @@ export default function ModeToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
+        <Button
+          variant="outline"
+          size="icon"
+        >
           <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
           <span className="sr-only">Toggle theme</span>
@@ -364,15 +382,25 @@ function LinksDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="flex gap-4 max-w-[100px]">
+        <Button
+          variant="outline"
+          className="flex gap-4 max-w-[100px]"
+        >
           <LuAlignLeft className="w-6 h-6" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-40" align="start" sideOffset={10}>
+      <DropdownMenuContent
+        className="w-40"
+        align="start"
+        sideOffset={10}
+      >
         {links.map((link) => {
           return (
             <DropdownMenuItem key={link.href}>
-              <Link href={link.href} className="capitalize w-full">
+              <Link
+                href={link.href}
+                className="capitalize w-full"
+              >
                 {link.label}
               </Link>
             </DropdownMenuItem>
@@ -583,7 +611,10 @@ async function AboutPage() {
     <div>
       {users.map((user) => {
         return (
-          <h2 key={user.id} className="text-2xl font-bold">
+          <h2
+            key={user.id}
+            className="text-2xl font-bold"
+          >
             {user.name}
           </h2>
         );
@@ -835,7 +866,11 @@ import { FaHeart } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 function FavoriteToggleButton({ productId }: { productId: string }) {
   return (
-    <Button size="icon" variant="outline" className="p-2 cursor-pointer">
+    <Button
+      size="icon"
+      variant="outline"
+      className="p-2 cursor-pointer"
+    >
       <FaHeart />
     </Button>
   );
@@ -861,7 +896,10 @@ function ProductsGrid({ products }: { products: Product[] }) {
         const productId = product.id;
         const dollarsAmount = formatCurrency(price);
         return (
-          <article key={productId} className="group relative">
+          <article
+            key={productId}
+            className="group relative"
+          >
             <Link href={`/products/${productId}`}>
               <Card className="transform group-hover:shadow-xl transition-shadow duration-500">
                 <CardContent className="p-4">
@@ -931,7 +969,11 @@ function Hero() {
           voluptate, laborum maiores possimus illum reprehenderit aut delectus veniam cum
           perferendis unde sint doloremque non nam.
         </p>
-        <Button asChild size="lg" className="mt-10">
+        <Button
+          asChild
+          size="lg"
+          className="mt-10"
+        >
           <Link href="/products">Our Products</Link>
         </Button>
       </div>
@@ -1097,7 +1139,10 @@ async function ProductsPage({
   const search = searchParams.search || "";
   return (
     <>
-      <ProductsContainer layout={layout} search={search} />
+      <ProductsContainer
+        layout={layout}
+        search={search}
+      />
     </>
   );
 }
@@ -1128,12 +1173,20 @@ async function ProductsContainer({ layout, search }: { layout: string; search: s
             {totalProducts} product{totalProducts > 1 && "s"}
           </h4>
           <div className="flex gap-x-4">
-            <Button variant={layout === "grid" ? "default" : "ghost"} size="icon" asChild>
+            <Button
+              variant={layout === "grid" ? "default" : "ghost"}
+              size="icon"
+              asChild
+            >
               <Link href={`/products?layout=grid${searchTerm}`}>
                 <LuLayoutGrid />
               </Link>
             </Button>
-            <Button variant={layout === "list" ? "default" : "ghost"} size="icon" asChild>
+            <Button
+              variant={layout === "list" ? "default" : "ghost"}
+              size="icon"
+              asChild
+            >
               <Link href={`/products?layout=list${searchTerm}`}>
                 <LuList />
               </Link>
@@ -1175,7 +1228,10 @@ function ProductsList({ products }: { products: Product[] }) {
         const dollarsAmount = formatCurrency(price);
         const productId = product.id;
         return (
-          <article key={productId} className="group relative">
+          <article
+            key={productId}
+            className="group relative"
+          >
             <Link href={`/products/${productId}`}>
               <Card className="transform group-hover:shadow-xl transition-shadow duration-500">
                 <CardContent className="p-8 gap-y-4 grid md:grid-cols-3">
@@ -1340,7 +1396,10 @@ import { Button } from "../ui/button";
 
 function AddToCart({ productId }: { productId: string }) {
   return (
-    <Button className="capitalize mt-8" size="lg">
+    <Button
+      className="capitalize mt-8"
+      size="lg"
+    >
       add to cart
     </Button>
   );
@@ -1365,14 +1424,20 @@ function BreadCrumbs({ name }: { name: string }) {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/" className="capitalize text-lg">
+          <BreadcrumbLink
+            href="/"
+            className="capitalize text-lg"
+          >
             home
           </BreadcrumbLink>
         </BreadcrumbItem>
 
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href="/products" className="capitalize text-lg">
+          <BreadcrumbLink
+            href="/products"
+            className="capitalize text-lg"
+          >
             products
           </BreadcrumbLink>
         </BreadcrumbItem>
@@ -1503,7 +1568,12 @@ function Providers({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Toaster />
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
         {children}
       </ThemeProvider>
     </>
@@ -1543,7 +1613,10 @@ import { ClerkProvider } from "@clerk/nextjs";
 
 return (
   <ClerkProvider>
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+    >
       <body className={inter.className}>
         <Providers>
           <Navbar />
@@ -1593,7 +1666,11 @@ function SignOutLink() {
   };
   return (
     <SignOutButton>
-      <Link href="/" className="w-full text-left" onClick={handleLogout}>
+      <Link
+        href="/"
+        className="w-full text-left"
+        onClick={handleLogout}
+      >
         Logout
       </Link>
     </SignOutButton>
@@ -1610,7 +1687,13 @@ import { currentUser } from "@clerk/nextjs/server";
 async function UserIcon() {
   const user = await currentUser();
   const profileImage = user?.imageUrl;
-  if (profileImage) return <img src={profileImage} className="w-6 h-6 rounded-full object-cover" />;
+  if (profileImage)
+    return (
+      <img
+        src={profileImage}
+        className="w-6 h-6 rounded-full object-cover"
+      />
+    );
   return <LuUser2 className="w-6 h-6 bg-primary rounded-full text-white" />;
 }
 export default UserIcon;
@@ -1638,12 +1721,19 @@ function LinksDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="flex gap-4 max-w-[100px]">
+        <Button
+          variant="outline"
+          className="flex gap-4 max-w-[100px]"
+        >
           <LuAlignLeft className="w-6 h-6" />
           <UserIcon />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-48" align="start" sideOffset={10}>
+      <DropdownMenuContent
+        className="w-48"
+        align="start"
+        sideOffset={10}
+      >
         <SignedOut>
           <DropdownMenuItem>
             <SignInButton mode="modal">
@@ -1661,7 +1751,10 @@ function LinksDropdown() {
           {links.map((link) => {
             return (
               <DropdownMenuItem key={link.href}>
-                <Link href={link.href} className="capitalize w-full">
+                <Link
+                  href={link.href}
+                  className="capitalize w-full"
+                >
                   {link.label}
                 </Link>
               </DropdownMenuItem>
@@ -1742,7 +1835,10 @@ function Sidebar() {
             className="w-full mb-2 capitalize font-normal justify-start"
             variant={variant}
           >
-            <Link key={link.href} href={link.href}>
+            <Link
+              key={link.href}
+              href={link.href}
+            >
               {link.label}
             </Link>
           </Button>
@@ -1821,7 +1917,10 @@ function LinksDropdown() {
         if (link.label === "dashboard" && !isAdmin) return null;
         return (
           <DropdownMenuItem key={link.href}>
-            <Link href={link.href} className="capitalize w-full">
+            <Link
+              href={link.href}
+              className="capitalize w-full"
+            >
               {link.label}
             </Link>
           </DropdownMenuItem>
@@ -1853,9 +1952,16 @@ function CreateProductPage() {
         <form action={createProductAction}>
           <div className="mb-2">
             <Label htmlFor="name">Product Name</Label>
-            <Input id="name" name="name" type="text" />
+            <Input
+              id="name"
+              name="name"
+              type="text"
+            />
           </div>
-          <Button type="submit" size="lg">
+          <Button
+            type="submit"
+            size="lg"
+          >
             Submit
           </Button>
         </form>
@@ -1882,7 +1988,14 @@ function CreateProductPage() {
   const company = faker.company.name();
   const description = faker.lorem.paragraph({ min: 10, max: 12 });
 
-  return <Input id="name" name="name" type="text" defaultValue={name} />;
+  return (
+    <Input
+      id="name"
+      name="name"
+      type="text"
+      defaultValue={name}
+    />
+  );
 }
 export default CreateProductPage;
 ```
@@ -1916,7 +2029,10 @@ type FormInputProps = {
 function FormInput({ label, name, type, defaultValue, placeholder }: FormInputProps) {
   return (
     <div className="mb-2">
-      <Label htmlFor={name} className="capitalize">
+      <Label
+        htmlFor={name}
+        className="capitalize"
+      >
         {label || name}
       </Label>
       <Input
@@ -1948,7 +2064,10 @@ type FormInputNumberProps = {
 function PriceInput({ defaultValue }: FormInputNumberProps) {
   return (
     <div className="mb-2">
-      <Label htmlFor="price" className="capitalize">
+      <Label
+        htmlFor="price"
+        className="capitalize"
+      >
         Price ($)
       </Label>
       <Input
@@ -1975,10 +2094,19 @@ function ImageInput() {
   const name = "image";
   return (
     <div className="mb-2">
-      <Label htmlFor={name} className="capitalize">
+      <Label
+        htmlFor={name}
+        className="capitalize"
+      >
         Image
       </Label>
-      <Input id={name} name={name} type="file" required accept="image/*" />
+      <Input
+        id={name}
+        name={name}
+        type="file"
+        required
+        accept="image/*"
+      />
     </div>
   );
 }
@@ -2000,7 +2128,10 @@ type TextAreaInputProps = {
 function TextAreaInput({ name, labelText, defaultValue }: TextAreaInputProps) {
   return (
     <div className="mb-2">
-      <Label htmlFor={name} className="capitalize">
+      <Label
+        htmlFor={name}
+        className="capitalize"
+      >
         {labelText || name}
       </Label>
       <Textarea
@@ -2034,7 +2165,11 @@ type CheckboxInputProps = {
 export default function CheckboxInput({ name, label, defaultChecked = false }: CheckboxInputProps) {
   return (
     <div className="flex items-center space-x-2">
-      <Checkbox id={name} name={name} defaultChecked={defaultChecked} />
+      <Checkbox
+        id={name}
+        name={name}
+        defaultChecked={defaultChecked}
+      />
       <label
         htmlFor={name}
         className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 capitalize"
@@ -2073,7 +2208,12 @@ export function SubmitButton({ className = "", text = "submit", size = "lg" }: S
   const { pending } = useFormStatus();
 
   return (
-    <Button type="submit" disabled={pending} className={cn("capitalize", className)} size={size}>
+    <Button
+      type="submit"
+      disabled={pending}
+      className={cn("capitalize", className)}
+      size={size}
+    >
       {pending ? (
         <>
           <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
@@ -2186,8 +2326,18 @@ function CreateProduct() {
       <div className="border p-8 rounded-md">
         <FormContainer action={createProductAction}>
           <div className="grid gap-4 md:grid-cols-2 my-4">
-            <FormInput type="text" name="name" label="product name" defaultValue={name} />
-            <FormInput type="text" name="company" label="company" defaultValue={company} />
+            <FormInput
+              type="text"
+              name="name"
+              label="product name"
+              defaultValue={name}
+            />
+            <FormInput
+              type="text"
+              name="company"
+              label="company"
+              defaultValue={company}
+            />
             <PriceInput />
             <ImageInput />
           </div>
@@ -2197,10 +2347,16 @@ function CreateProduct() {
             defaultValue={description}
           />
           <div className="mt-6">
-            <CheckboxInput name="featured" label="featured" />
+            <CheckboxInput
+              name="featured"
+              label="featured"
+            />
           </div>
 
-          <SubmitButton text="Create Product" className="mt-8" />
+          <SubmitButton
+            text="Create Product"
+            className="mt-8"
+          />
         </FormContainer>
       </div>
     </section>
@@ -2213,7 +2369,7 @@ export default CreateProduct;
 
 - actions.ts
 
-```ts
+````ts
 import { auth, currentUser } from "@clerk/nextjs/server";
 
 const renderError = (error: unknown): { message: string } => {
@@ -2230,7 +2386,7 @@ const getAuthUser = async () => {
   }
   return user;
 };
-```
+```f
 
 ### CreateProductAction - First Approach
 
@@ -2267,7 +2423,7 @@ export const createProductAction = async (
     return renderError(error);
   }
 };
-```
+````
 
 ### Problems
 
@@ -2660,7 +2816,12 @@ export const IconButton = ({ actionType }: { actionType: actionType }) => {
   };
 
   return (
-    <Button type="submit" size="icon" variant="link" className="p-2 cursor-pointer">
+    <Button
+      type="submit"
+      size="icon"
+      variant="link"
+      className="p-2 cursor-pointer"
+    >
       {pending ? <ReloadIcon className=" animate-spin" /> : renderIcon()}
     </Button>
   );
@@ -2799,9 +2960,23 @@ async function EditProductPage({ params }: { params: { id: string } }) {
         {/* Image Input Container */}
         <FormContainer action={updateProductAction}>
           <div className="grid gap-4 md:grid-cols-2 my-4">
-            <input type="hidden" name="id" value={id} />
-            <FormInput type="text" name="name" label="product name" defaultValue={name} />
-            <FormInput type="text" name="company" label="company" defaultValue={company} />
+            <input
+              type="hidden"
+              name="id"
+              value={id}
+            />
+            <FormInput
+              type="text"
+              name="name"
+              label="product name"
+              defaultValue={name}
+            />
+            <FormInput
+              type="text"
+              name="company"
+              label="company"
+              defaultValue={company}
+            />
 
             <PriceInput defaultValue={price} />
           </div>
@@ -2811,9 +2986,16 @@ async function EditProductPage({ params }: { params: { id: string } }) {
             defaultValue={description}
           />
           <div className="mt-6">
-            <CheckboxInput name="featured" label="featured" defaultChecked={featured} />
+            <CheckboxInput
+              name="featured"
+              label="featured"
+              defaultChecked={featured}
+            />
           </div>
-          <SubmitButton text="update product" className="mt-8" />
+          <SubmitButton
+            text="update product"
+            className="mt-8"
+          />
         </FormContainer>
       </div>
     </section>
@@ -2885,7 +3067,11 @@ function ImageInputContainer(props: ImageInputContainerProps) {
         alt={name}
       />
 
-      <Button variant="outline" size="sm" onClick={() => setUpdateFormVisible((prev) => !prev)}>
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => setUpdateFormVisible((prev) => !prev)}
+      >
         {text}
       </Button>
       {isUpdateFormVisible && (
@@ -2915,8 +3101,16 @@ return (
       image={product.image}
       text="update image"
     >
-      <input type="hidden" name="id" value={id} />
-      <input type="hidden" name="url" value={product.image} />
+      <input
+        type="hidden"
+        name="id"
+        value={id}
+      />
+      <input
+        type="hidden"
+        name="url"
+        value={product.image}
+      />
     </ImageInputContainer>
   </div>
 );
@@ -2963,7 +3157,10 @@ import { Skeleton } from "../ui/skeleton";
 function LoadingTable({ rows = 5 }: { rows?: number }) {
   const tableRows = Array.from({ length: rows }, (_, index) => {
     return (
-      <div className="mb-4" key={index}>
+      <div
+        className="mb-4"
+        key={index}
+      >
         <Skeleton className="w-full h-8 rounded" />
       </div>
     );
@@ -3017,7 +3214,13 @@ npx prisma db push
 export const CardSignInButton = () => {
   return (
     <SignInButton mode="modal">
-      <Button type="button" size="icon" variant="outline" className="p-2 cursor-pointer" asChild>
+      <Button
+        type="button"
+        size="icon"
+        variant="outline"
+        className="p-2 cursor-pointer"
+        asChild
+      >
         <FaRegHeart />
       </Button>
     </SignInButton>
@@ -3027,7 +3230,12 @@ export const CardSignInButton = () => {
 export const CardSubmitButton = ({ isFavorite }: { isFavorite: boolean }) => {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" size="icon" variant="outline" className=" p-2 cursor-pointer">
+    <Button
+      type="submit"
+      size="icon"
+      variant="outline"
+      className=" p-2 cursor-pointer"
+    >
       {pending ? (
         <ReloadIcon className=" animate-spin" />
       ) : isFavorite ? (
@@ -3078,7 +3286,12 @@ async function FavoriteToggleButton({ productId }: { productId: string }) {
   if (!userId) return <CardSignInButton />;
   const favoriteId = await fetchFavoriteId({ productId });
 
-  return <FavoriteToggleForm favoriteId={favoriteId} productId={productId} />;
+  return (
+    <FavoriteToggleForm
+      favoriteId={favoriteId}
+      productId={productId}
+    />
+  );
 }
 export default FavoriteToggleButton;
 ```
@@ -3239,7 +3452,11 @@ function ShareButton({ productId, name }: { productId: string; name: string }) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="icon" className="p-2">
+        <Button
+          variant="outline"
+          size="icon"
+          className="p-2"
+        >
           <LuShare2 />
         </Button>
       </PopoverTrigger>
@@ -3249,14 +3466,32 @@ function ShareButton({ productId, name }: { productId: string; name: string }) {
         sideOffset={10}
         className="flex items-center gap-x-2 justify-center w-full"
       >
-        <TwitterShareButton url={shareLink} title={name}>
-          <TwitterIcon size={32} round />
+        <TwitterShareButton
+          url={shareLink}
+          title={name}
+        >
+          <TwitterIcon
+            size={32}
+            round
+          />
         </TwitterShareButton>
-        <LinkedinShareButton url={shareLink} title={name}>
-          <LinkedinIcon size={32} round />
+        <LinkedinShareButton
+          url={shareLink}
+          title={name}
+        >
+          <LinkedinIcon
+            size={32}
+            round
+          />
         </LinkedinShareButton>
-        <EmailShareButton url={shareLink} subject={name}>
-          <EmailIcon size={32} round />
+        <EmailShareButton
+          url={shareLink}
+          subject={name}
+        >
+          <EmailIcon
+            size={32}
+            round
+          />
         </EmailShareButton>
       </PopoverContent>
     </Popover>
@@ -3275,7 +3510,10 @@ return (
     <h1 className="capitalize text-3xl font-bold">{name}</h1>
     <div className="flex items-center gap-x-2">
       <FavoriteToggleButton productId={params.id} />
-      <ShareButton name={product.name} productId={params.id} />
+      <ShareButton
+        name={product.name}
+        productId={params.id}
+      />
     </div>
   </div>
 );
@@ -3351,17 +3589,27 @@ const RatingInput = ({ name, labelText }: { name: string; labelText?: string }) 
 
   return (
     <div className="mb-2 max-w-xs">
-      <Label htmlFor={name} className="capitalize">
+      <Label
+        htmlFor={name}
+        className="capitalize"
+      >
         {labelText || name}
       </Label>
-      <Select defaultValue={numbers[0]} name={name} required>
+      <Select
+        defaultValue={numbers[0]}
+        name={name}
+        required
+      >
         <SelectTrigger>
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
           {numbers.map((number) => {
             return (
-              <SelectItem key={number} value={number}>
+              <SelectItem
+                key={number}
+                value={number}
+              >
                 {number}
               </SelectItem>
             );
@@ -3403,9 +3651,21 @@ function SubmitReview({ productId }: { productId: string }) {
       {isReviewFormVisible && (
         <Card className="p-8 mt-8">
           <FormContainer action={createReviewAction}>
-            <input type="hidden" name="productId" value={productId} />
-            <input type="hidden" name="authorName" value={user?.firstName || "user"} />
-            <input type="hidden" name="authorImageUrl" value={user?.imageUrl || ""} />
+            <input
+              type="hidden"
+              name="productId"
+              value={productId}
+            />
+            <input
+              type="hidden"
+              name="authorName"
+              value={user?.firstName || "user"}
+            />
+            <input
+              type="hidden"
+              name="authorImageUrl"
+              value={user?.imageUrl || ""}
+            />
             <RatingInput name="rating" />
             <TextAreaInput
               name="comment"
@@ -3506,9 +3766,15 @@ function Rating({ rating }: { rating: number }) {
       {stars.map((isFilled, i) => {
         const className = `w-3 h-3 ${isFilled ? "text-primary" : "text-gray-400"}`;
         return isFilled ? (
-          <FaStar className={className} key={i} />
+          <FaStar
+            className={className}
+            key={i}
+          />
         ) : (
-          <FaRegStar className={className} key={i} />
+          <FaRegStar
+            className={className}
+            key={i}
+          />
         );
       })}
     </div>
@@ -3537,7 +3803,11 @@ function Comment({ comment }: { comment: string }) {
     <div>
       <p className="text-sm">{displayComment}</p>
       {longComment && (
-        <Button variant="link" className="pl-0 text-muted-foreground" onClick={toggleExpanded}>
+        <Button
+          variant="link"
+          className="pl-0 text-muted-foreground"
+          onClick={toggleExpanded}
+        >
           {isExpanded ? "Show Less" : "Show More"}
         </Button>
       )}
@@ -3587,7 +3857,12 @@ async function ProductReviews({ productId }: { productId: string }) {
             image: authorImageUrl,
             name: authorName,
           };
-          return <ReviewCard key={review.id} reviewInfo={reviewInfo} />;
+          return (
+            <ReviewCard
+              key={review.id}
+              reviewInfo={reviewInfo}
+            />
+          );
         })}
       </div>
     </div>
@@ -3758,7 +4033,10 @@ async function ReviewsPage() {
             image,
           };
           return (
-            <ReviewCard key={review.id} reviewInfo={reviewInfo}>
+            <ReviewCard
+              key={review.id}
+              reviewInfo={reviewInfo}
+            >
               <DeleteReview reviewId={review.id} />
             </ReviewCard>
           );
@@ -3940,7 +4218,11 @@ async function CartButton() {
 export const ProductSignInButton = () => {
   return (
     <SignInButton mode="modal">
-      <Button type="button" size="default" className="mt-8">
+      <Button
+        type="button"
+        size="default"
+        className="mt-8"
+      >
         Please Sign In
       </Button>
     </SignInButton>
@@ -3999,7 +4281,10 @@ function SelectProductAmount(props: SelectProductAmountProps | SelectCartItemAmo
           {Array.from({ length: cartItem ? amount + 10 : 10 }, (_, index) => {
             const selectValue = (index + 1).toString();
             return (
-              <SelectItem key={index} value={selectValue}>
+              <SelectItem
+                key={index}
+                value={selectValue}
+              >
                 {selectValue}
               </SelectItem>
             );
@@ -4030,12 +4315,28 @@ function AddToCart({ productId }: { productId: string }) {
   const { userId } = useAuth();
   return (
     <div className="mt-4">
-      <SelectProductAmount mode={Mode.SingleProduct} amount={amount} setAmount={setAmount} />
+      <SelectProductAmount
+        mode={Mode.SingleProduct}
+        amount={amount}
+        setAmount={setAmount}
+      />
       {userId ? (
         <FormContainer action={addToCartAction}>
-          <input type="hidden" name="productId" value={productId} />
-          <input type="hidden" name="amount" value={amount} />
-          <SubmitButton text="add to cart" size="default" className="mt-8" />
+          <input
+            type="hidden"
+            name="productId"
+            value={productId}
+          />
+          <input
+            type="hidden"
+            name="amount"
+            value={amount}
+          />
+          <SubmitButton
+            text="add to cart"
+            size="default"
+            className="mt-8"
+          />
         </FormContainer>
       ) : (
         <ProductSignInButton />
@@ -4244,15 +4545,31 @@ function CartTotals({ cart }: { cart: Cart }) {
   return (
     <div>
       <Card className="p-8 ">
-        <CartTotalRow label="Subtotal" amount={cartTotal} />
-        <CartTotalRow label="Shipping" amount={shipping} />
-        <CartTotalRow label="Tax" amount={tax} />
+        <CartTotalRow
+          label="Subtotal"
+          amount={cartTotal}
+        />
+        <CartTotalRow
+          label="Shipping"
+          amount={shipping}
+        />
+        <CartTotalRow
+          label="Tax"
+          amount={tax}
+        />
         <CardTitle className="mt-8">
-          <CartTotalRow label="Order Total" amount={orderTotal} lastRow />
+          <CartTotalRow
+            label="Order Total"
+            amount={orderTotal}
+            lastRow
+          />
         </CardTitle>
       </Card>
       <FormContainer action={createOrderAction}>
-        <SubmitButton text="Place Order" className="w-full mt-8" />
+        <SubmitButton
+          text="Place Order"
+          className="w-full mt-8"
+        />
       </FormContainer>
     </div>
   );
@@ -4351,10 +4668,23 @@ function CartItemsList({ cartItems }: { cartItems: CartItemWithProduct[] }) {
         const { id, amount } = cartItem;
         const { id: productId, image, name, company, price } = cartItem.product;
         return (
-          <Card key={id} className="flex flex-col gap-y-4 md:flex-row flex-wrap p-6 mb-8 gap-x-4">
-            <FirstColumn image={image} name={name} />
-            <SecondColumn name={name} company={company} productId={productId} />
-            <ThirdColumn id={id} quantity={amount} />
+          <Card
+            key={id}
+            className="flex flex-col gap-y-4 md:flex-row flex-wrap p-6 mb-8 gap-x-4"
+          >
+            <FirstColumn
+              image={image}
+              name={name}
+            />
+            <SecondColumn
+              name={name}
+              company={company}
+              productId={productId}
+            />
+            <ThirdColumn
+              id={id}
+              quantity={amount}
+            />
             <FourthColumn price={price} />
           </Card>
         );
@@ -4403,8 +4733,16 @@ function ThirdColumn({ quantity, id }: { quantity: number; id: string }) {
         isLoading={false}
       />
       <FormContainer action={removeCartItemAction}>
-        <input type="hidden" name="id" value={id} />
-        <SubmitButton size="sm" className="mt-4" text="remove" />
+        <input
+          type="hidden"
+          name="id"
+          value={id}
+        />
+        <SubmitButton
+          size="sm"
+          className="mt-4"
+          text="remove"
+        />
       </FormContainer>
     </div>
   );
@@ -4521,8 +4859,16 @@ function ThirdColumn({ quantity, id }: { quantity: number; id: string }) {
         isLoading={isLoading}
       />
       <FormContainer action={removeCartItemAction}>
-        <input type="hidden" name="id" value={id} />
-        <SubmitButton size="sm" className="mt-4" text="remove" />
+        <input
+          type="hidden"
+          name="id"
+          value={id}
+        />
+        <SubmitButton
+          size="sm"
+          className="mt-4"
+          text="remove"
+        />
       </FormContainer>
     </div>
   );
@@ -4955,7 +5301,10 @@ export default function CheckoutPage() {
 
   return (
     <div id="checkout">
-      <EmbeddedCheckoutProvider stripe={stripePromise} options={options}>
+      <EmbeddedCheckoutProvider
+        stripe={stripePromise}
+        options={options}
+      >
         <EmbeddedCheckout />
       </EmbeddedCheckoutProvider>
     </div>

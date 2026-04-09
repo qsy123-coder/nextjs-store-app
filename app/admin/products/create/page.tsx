@@ -11,12 +11,13 @@ import PriceInput from "@/components/form/PriceInput";
 import ImageInput from "@/components/form/ImageInput";
 import CheckBoxInput from "@/components/form/CheckBoxInput";
 import TextAreaInput from "@/components/form/TextAreaInput";
+import { SubmitButton } from "@/components/form/SubmitButton";
 // const createProductAction = async (formData: FormData) => {
 //   "use server";
 //   const name = formData.get("name") as string;
 //   console.log(name);
 // };
-const CreatePage = () => {
+const CreatePage = async () => {
   const name = faker.commerce.productName();
   const company = faker.company.name();
   const description = faker.lorem.paragraphs({ min: 10, max: 12 });
@@ -53,16 +54,12 @@ const CreatePage = () => {
             </div>
             <CheckBoxInput
               name="featured"
-              defaultValue={false}
               label="Featured"
             />
-            <Button
-              type="submit"
-              variant={"outline"}
-              size="lg"
-            >
-              提交
-            </Button>
+            <SubmitButton
+              text="提交"
+              btnSize="lg"
+            />
           </FormContainer>
         </div>
       </div>

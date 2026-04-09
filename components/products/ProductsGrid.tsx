@@ -5,8 +5,9 @@ import Image from "next/image";
 import { formatCurrency } from "@/utils/formatCurrency";
 import Link from "next/link";
 import FavoriteToggleButton from "./FavoriteToggleButton";
+import { fetchFavoriteId } from "@/utils/action";
 
-const ProductsGrid = ({ products }: { products: Product[] }) => {
+const ProductsGrid = async ({ products }: { products: Product[] }) => {
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
       {products.map((product, index) => {
@@ -21,14 +22,14 @@ const ProductsGrid = ({ products }: { products: Product[] }) => {
             <Link href={`/products/${productId}`}>
               <Card className="group-hover:shadow transition-shadow duration-100 ">
                 <CardContent className="p-4">
-                  <div className="relative h-64 md:h-48 overflow-hidden">
+                  <div className="relative h-48 md:h-48 overflow-hidden">
                     <Image
                       src={image}
                       alt={name}
                       fill
                       priority
                       sizes="(max-width:768px) 100vw,(max-width:1280px) 50vw, 33vw"
-                      className="rounded w-full  object-cover transform group-hover:scale-110 transition-transform duration-300"
+                      className="rounded w-90  object-cover transform group-hover:scale-110 transition-transform duration-300"
                     />
                   </div>
                   <div className="py-4">
