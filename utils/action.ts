@@ -2,7 +2,7 @@
 import db from "@/utils/db";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { imageSchema, productSchema, validateWithZodSchema } from "./schema";
+import { imageSchema, productSchema, reviewSchema, validateWithZodSchema } from "./schema";
 import { useId } from "react";
 import { deleteImage, uploadImage } from "./supabase";
 import { revalidatePath } from "next/cache";
@@ -245,4 +245,41 @@ export const fetchFavoriteAction = async () => {
     },
   });
   return favorites;
+};
+
+export const fetchReviews = async ({ productId }: { productId: string }) => {
+  const user = await fetchUserId();
+
+  const reviews = await db.review.findMany({
+    where: {
+      productId: productId,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  return reviews;
+};
+export const deleteReview = async () => {
+  return { message: "review delete" };
+};
+
+export const submitReview = async (preState: any, formData: FormData) => {
+  const user = await fetchUserId();
+  const rawData = Object.fromEntries(formData);
+  const validateField = validateWithZodSchema(reviewSchema, rawData);
+  try {
+    await db.review.create({
+      data: {
+        clerkId: user.id,
+        ...validateField,
+      },
+    });
+
+    revalidatePath(`/products/${validateField.productId}`);
+  } catch (error) {
+    return renderError(error);
+  }
+
+  return { message: "review delete" };
 };

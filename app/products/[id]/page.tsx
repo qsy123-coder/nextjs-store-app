@@ -1,7 +1,10 @@
 import FavoriteToggleButton from "@/components/products/FavoriteToggleButton";
+import ProductReview from "@/components/review/ProductReview";
+import SubmitReview from "@/components/review/SubmitReview";
 import AddToCart from "@/components/single-product/AddToCart";
 import BreadCrumbs from "@/components/single-product/BreadCrumbs";
 import ProductRating from "@/components/single-product/ProductRating";
+import ShareButton from "@/components/single-product/ShareButton";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { fetchSingleProduct } from "@/utils/action";
 import { formatCurrency } from "@/utils/formatCurrency";
@@ -30,7 +33,13 @@ const SingleProductPage = async ({ params }: { params: Promise<{ id: string }> }
         <div>
           <div className="flex items-center gap-4 ">
             <h1 className="capitalize text-4xl font-semibold tracking-tight mb-2 ">{name}</h1>
-            <FavoriteToggleButton productId={id} />
+            <div className="flex items-center gap-2">
+              <ShareButton
+                productId={id}
+                name={name}
+              />
+              <FavoriteToggleButton productId={id} />
+            </div>
           </div>
 
           <ProductRating />
@@ -46,6 +55,8 @@ const SingleProductPage = async ({ params }: { params: Promise<{ id: string }> }
           </div>
         </div>
       </section>
+      <SubmitReview productId={id} />
+      <ProductReview productId={id} />
     </div>
   );
 };
