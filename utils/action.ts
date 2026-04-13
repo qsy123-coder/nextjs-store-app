@@ -283,3 +283,23 @@ export const submitReview = async (preState: any, formData: FormData) => {
 
   return { message: "review delete" };
 };
+
+//获取产品平均评分以及评分数量
+export const fetchProductReviews = async (productId: string) => {
+  const result = await db.review.groupBy({
+    by: ["productId"],
+    _avg: {
+      rating: true,
+    },
+    _count: {
+      comment: true,
+    },
+    where: {
+      productId,
+    },
+  });
+  return {
+    rating: result[0]?._avg?.rating?.toFixed(1) ?? 0,
+    count: result[0]?._count?.comment ?? 0,
+  };
+};

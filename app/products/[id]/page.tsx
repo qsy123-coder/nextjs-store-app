@@ -1,3 +1,4 @@
+import SectionTitle from "@/components/global/SectionTitle";
 import FavoriteToggleButton from "@/components/products/FavoriteToggleButton";
 import ProductReview from "@/components/review/ProductReview";
 import SubmitReview from "@/components/review/SubmitReview";
@@ -42,7 +43,7 @@ const SingleProductPage = async ({ params }: { params: Promise<{ id: string }> }
             </div>
           </div>
 
-          <ProductRating />
+          <ProductRating productId={id} />
           <p className="text-xl font-mono py-4">{company}</p>
           <span className="bg-amber-100 p-3 text-sm rounded-sm">{formatCurrency(price)}</span>
           <p className="text-lg text-muted-foreground leading-8 tracking-wide mt-4">
@@ -55,8 +56,11 @@ const SingleProductPage = async ({ params }: { params: Promise<{ id: string }> }
           </div>
         </div>
       </section>
-      <SubmitReview productId={id} />
-      <ProductReview productId={id} />
+      <section>
+        <SectionTitle text="Reviews" />
+        <SubmitReview productId={id} />
+        <ProductReview productId={id} />
+      </section>
     </div>
   );
 };
