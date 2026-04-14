@@ -40,7 +40,7 @@ export const IconButton = ({ iconType }: { iconType: IconButtonType }) => {
   return (
     <div className="">
       <Button
-        variant={"outline"}
+        variant={"ghost"}
         disabled={pending}
         type="submit"
         size="icon-sm"

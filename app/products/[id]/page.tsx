@@ -7,16 +7,18 @@ import BreadCrumbs from "@/components/single-product/BreadCrumbs";
 import ProductRating from "@/components/single-product/ProductRating";
 import ShareButton from "@/components/single-product/ShareButton";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
-import { fetchSingleProduct } from "@/utils/action";
+import { fetchSingleProduct, findReviewByUser } from "@/utils/action";
 import { formatCurrency } from "@/utils/formatCurrency";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import React from "react";
+import React, { useId } from "react";
 
 const SingleProductPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   const { name, image, company, price } = await fetchSingleProduct(id);
-  //   const {name,image}=product
+  const { userId } = await auth();
+
   return (
     <div>
       <BreadCrumbs text={name} />
@@ -58,7 +60,10 @@ const SingleProductPage = async ({ params }: { params: Promise<{ id: string }> }
       </section>
       <section>
         <SectionTitle text="Reviews" />
-        <SubmitReview productId={id} />
+        {userId && !(await findReviewByUser({ productId: id, userId })) && (
+          <SubmitReview productId={id} />
+        )}
+
         <ProductReview productId={id} />
       </section>
     </div>

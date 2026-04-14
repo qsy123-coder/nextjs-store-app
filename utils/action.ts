@@ -248,8 +248,6 @@ export const fetchFavoriteAction = async () => {
 };
 
 export const fetchReviews = async ({ productId }: { productId: string }) => {
-  const user = await fetchUserId();
-
   const reviews = await db.review.findMany({
     where: {
       productId: productId,
@@ -302,4 +300,61 @@ export const fetchProductReviews = async (productId: string) => {
     rating: result[0]?._avg?.rating?.toFixed(1) ?? 0,
     count: result[0]?._count?.comment ?? 0,
   };
+};
+
+//获取用户产品评论
+
+export const fetchProductReviewsByUser = async () => {
+  const user = await fetchUserId();
+  const result = await db.review.findMany({
+    where: {
+      clerkId: user.id,
+    },
+    select: {
+      id: true,
+      comment: true,
+      rating: true,
+      product: {
+        select: {
+          name: true,
+          image: true,
+        },
+      },
+    },
+  });
+
+  return result;
+};
+
+//删除评论
+
+export const deleteReviewAction = async (prevState: { reviewId: string }) => {
+  const { reviewId } = prevState;
+  const user = await fetchUserId();
+  try {
+    await db.review.delete({
+      where: {
+        id: reviewId,
+        clerkId: user.id,
+      },
+    });
+    revalidatePath("/reviews");
+    return { message: "You have delete this review" };
+  } catch (error) {
+    return renderError(error);
+  }
+};
+
+//找到用户的第一个评论
+
+export const findReviewByUser = async (preState: { productId: string; userId: string }) => {
+  const { productId, userId } = preState;
+
+  const result = await db.review.findFirst({
+    where: {
+      clerkId: userId,
+      productId: productId,
+    },
+  });
+  return result;
 };
