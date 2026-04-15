@@ -7,6 +7,7 @@ import SelectProductAmount, { Mod } from "./SelectProductAmount";
 import FormContainer from "../form/FormContainer";
 import { addToCartAction } from "@/utils/action";
 import { SignInButton, useAuth } from "@clerk/nextjs";
+import { SubmitButton } from "../form/SubmitButton";
 
 const AddToCart = ({ productId }: { productId: string }) => {
   const [amount, setAmount] = useState(1);
@@ -30,12 +31,11 @@ const AddToCart = ({ productId }: { productId: string }) => {
             name="amount"
             value={amount}
           />
-          <Button
-            size="lg"
+          <SubmitButton
+            text=" Add to cart"
+            btnSize="lg"
             className="mt-8"
-          >
-            Add to cart
-          </Button>
+          ></SubmitButton>
         </FormContainer>
       ) : (
         <SignInButton mode="modal">
