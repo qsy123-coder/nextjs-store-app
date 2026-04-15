@@ -358,3 +358,32 @@ export const findReviewByUser = async (preState: { productId: string; userId: st
   });
   return result;
 };
+
+export const fetchCartItems = async () => {
+  const { userId } = await auth();
+  const result = await db.cart.findFirst({
+    where: {
+      clerkId: userId ?? "",
+    },
+    select: {
+      numItemsInCart: true,
+    },
+  });
+  return result?.numItemsInCart || 0;
+};
+
+const fetchProduct = async () => {};
+
+export const fetchOrCreateCart = async () => {};
+
+const updateOrCreateCartItem = async () => {};
+
+export const updateCart = async () => {};
+
+export const addToCartAction = async (preState: any, formData: FormData) => {
+  return { message: "Product added to cart" };
+};
+
+export const removeCartItemAction = async () => {};
+
+export const updateCartItemAction = async () => {};

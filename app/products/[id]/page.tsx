@@ -5,6 +5,7 @@ import SubmitReview from "@/components/review/SubmitReview";
 import AddToCart from "@/components/single-product/AddToCart";
 import BreadCrumbs from "@/components/single-product/BreadCrumbs";
 import ProductRating from "@/components/single-product/ProductRating";
+import SelectProductAmount from "@/components/single-product/SelectProductAmount";
 import ShareButton from "@/components/single-product/ShareButton";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { fetchSingleProduct, findReviewByUser } from "@/utils/action";
@@ -54,7 +55,7 @@ const SingleProductPage = async ({ params }: { params: Promise<{ id: string }> }
             consequuntur provident quaerat accusamus natus.
           </p>
           <div className="mt-4">
-            <AddToCart />
+            <AddToCart productId={id} />
           </div>
         </div>
       </section>

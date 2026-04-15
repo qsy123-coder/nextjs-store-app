@@ -1,21 +1,53 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import SelectProductAmount, { Mod } from "./SelectProductAmount";
+import FormContainer from "../form/FormContainer";
+import { addToCartAction } from "@/utils/action";
+import { SignInButton, useAuth } from "@clerk/nextjs";
 
-const AddToCart = () => {
+const AddToCart = ({ productId }: { productId: string }) => {
+  const [amount, setAmount] = useState(1);
+  const { userId } = useAuth();
   return (
-    <Button
-      asChild
-      size="lg"
-      className="mt-8"
-    >
-      <Link
-        href="/cart"
-        className="px-6 py-6"
-      >
-        add to cart
-      </Link>
-    </Button>
+    <div>
+      <SelectProductAmount
+        amount={amount}
+        mod={Mod.SingleProduct}
+        setAmount={setAmount}
+      />
+      {userId ? (
+        <FormContainer action={addToCartAction}>
+          <input
+            type="hidden"
+            name="productId"
+            value={productId}
+          />
+          <input
+            type="hidden"
+            name="amount"
+            value={amount}
+          />
+          <Button
+            size="lg"
+            className="mt-8"
+          >
+            Add to cart
+          </Button>
+        </FormContainer>
+      ) : (
+        <SignInButton mode="modal">
+          <Button
+            size={"lg"}
+            className="mt-8"
+          >
+            去登录
+          </Button>
+        </SignInButton>
+      )}
+    </div>
   );
 };
 
