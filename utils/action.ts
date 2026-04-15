@@ -6,6 +6,7 @@ import { imageSchema, productSchema, reviewSchema, validateWithZodSchema } from 
 import { useId } from "react";
 import { deleteImage, uploadImage } from "./supabase";
 import { revalidatePath } from "next/cache";
+import { Cart } from "@prisma/client";
 // import { revalidatePath } from "next/cache";
 const renderError = async (error: unknown): Promise<{ message: string }> => {
   return error instanceof Error ? { message: error.message } : { message: "there is a error" };
@@ -359,6 +360,7 @@ export const findReviewByUser = async (preState: { productId: string; userId: st
   return result;
 };
 
+//获取购物车所有项总数量
 export const fetchCartItems = async () => {
   const { userId } = await auth();
   const result = await db.cart.findFirst({
@@ -372,6 +374,7 @@ export const fetchCartItems = async () => {
   return result?.numItemsInCart || 0;
 };
 
+//获取产品
 const fetchProduct = async (productId: string) => {
   const product = await db.product.findUnique({
     where: {
@@ -384,6 +387,8 @@ const fetchProduct = async (productId: string) => {
   }
   return product;
 };
+
+//添加关联product的product字段
 const includeProductClause = {
   cartItems: {
     include: {
@@ -392,6 +397,7 @@ const includeProductClause = {
   },
 };
 
+//获取或创建购物车
 export const fetchOrCreateCart = async ({
   userId,
   errorOnFailure = false,
@@ -422,24 +428,33 @@ export const fetchOrCreateCart = async ({
   return cart;
 };
 
+//更新或创建购物车项
 const updateOrCreateCartItem = async ({
-  productId,
   cartId,
+  productId,
   amount,
 }: {
-  productId: string;
   cartId: string;
+  productId: string;
   amount: number;
 }) => {
   let cartItem = await db.cartItem.findFirst({
     where: {
-      productId,
-      cartId,
+      productId: productId,
+      cartId: cartId,
     },
   });
 
-  if (cartItem) {
-    cartItem = await db.cartItem.update({
+  if (!cartItem) {
+    cartItem = await db.cartItem.create({
+      data: {
+        cartId: cartId,
+        productId: productId,
+        amount: amount,
+      },
+    });
+  } else {
+    await db.cartItem.update({
       where: {
         id: cartItem.id,
       },
@@ -447,14 +462,45 @@ const updateOrCreateCartItem = async ({
         amount: cartItem.amount + amount,
       },
     });
-  } else {
-    cartItem = await db.cartItem.create({
-      data: { amount, productId, cartId },
-    });
   }
 };
 
-export const updateCart = async () => {};
+//更新购物车
+export const updateCart = async (cart: Cart) => {
+  let numItemsInCart = 0;
+  let cartTotal = 0;
+
+  const cartItems = await db.cartItem.findMany({
+    where: {
+      cartId: cart.id,
+    },
+    include: {
+      product: true,
+      cart: true,
+    },
+  });
+
+  for (const cartItem of cartItems) {
+    const { price } = cartItem.product;
+    cartTotal += cartItem.amount * price;
+    numItemsInCart += cartItem.amount;
+  }
+
+  const tax = cartTotal * cart.taxRate;
+  const shipping = cartTotal ? cart.shipping : 0;
+  const orderTotal = shipping + tax + cartTotal;
+  await db.cart.update({
+    where: {
+      id: cart.id,
+    },
+    data: {
+      numItemsInCart,
+      cartTotal,
+      orderTotal,
+      tax,
+    },
+  });
+};
 
 export const addToCartAction = async (prevState: any, formData: FormData) => {
   const user = await fetchUserId();
@@ -463,7 +509,8 @@ export const addToCartAction = async (prevState: any, formData: FormData) => {
     const amount = Number(formData.get("amount"));
     await fetchProduct(productId);
     const cart = await fetchOrCreateCart({ userId: user.id });
-    await updateOrCreateCartItem({ productId, cartId: cart.id, amount });
+    const cartItem = await updateOrCreateCartItem({ cartId: cart.id, productId, amount });
+    await updateCart(cart);
     return { message: "fff" };
   } catch (error) {
     return renderError(error);
