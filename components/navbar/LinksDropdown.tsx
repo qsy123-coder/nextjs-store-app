@@ -24,12 +24,8 @@ import {
 import { Separator } from "../ui/separator";
 import UserIcon from "./UserIcon";
 import SignOutLink from "./SignOutLink";
-import { toast } from "sonner";
-import { auth } from "@clerk/nextjs/server";
-const LinksDropdown = () => {
-  const { userId } = useAuth();
 
-  const isAdmin = userId === process.env.ADMIN_USER_ID;
+const LinksDropdown = ({ isAdmin }: { isAdmin: boolean }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

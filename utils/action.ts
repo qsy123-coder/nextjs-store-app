@@ -489,7 +489,7 @@ export const updateCart = async (cart: Cart) => {
   const tax = cartTotal * cart.taxRate;
   const shipping = cartTotal ? cart.shipping : 0;
   const orderTotal = shipping + tax + cartTotal;
-  await db.cart.update({
+  const currentCart = await db.cart.update({
     where: {
       id: cart.id,
     },
@@ -500,6 +500,7 @@ export const updateCart = async (cart: Cart) => {
       tax,
     },
   });
+  return { currentCart, cartItems };
 };
 
 //添加到购物车操作

@@ -8,7 +8,10 @@ import Container from "../global/Container";
 import NavSearch from "./NavSearch";
 import { auth } from "@clerk/nextjs/server";
 
-const Navbar = () => {
+const Navbar = async () => {
+  const { userId } = await auth();
+
+  const isAdmin = userId === process.env.ADMIN_USER_ID;
   return (
     <nav className="shadow">
       <Container className="flex flex-col sm:flex-row sm:justify-between sm:items-center flex-wrap py-8 gap-4">
@@ -17,11 +20,10 @@ const Navbar = () => {
           <NavSearch />
         </Suspense>
         <div className="flex gap-4 items-center justify-center">
-          <Suspense fallback={<div>Cart...</div>}>
-            <CartButton />
-          </Suspense>
+          <CartButton />
+
           <DarkMode />
-          <LinksDropdown />
+          <LinksDropdown isAdmin={isAdmin} />
         </div>
       </Container>
     </nav>

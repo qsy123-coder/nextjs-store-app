@@ -7,8 +7,8 @@ import FormContainer from "../form/FormContainer";
 import { SubmitButton } from "../form/SubmitButton";
 import { createOrderAction } from "@/utils/action";
 
-const CartTotal = ({ cart }: { cart: Cart }) => {
-  const { cartTotal, shipping, tax, taxRate, orderTotal } = cart;
+const CartTotal = ({ currentCart }: { currentCart: Cart }) => {
+  const { cartTotal, shipping, tax, taxRate, orderTotal } = currentCart;
   return (
     <Card className="p-8 ">
       <CartTotalRow
