@@ -7,6 +7,7 @@ import Container from "@/components/global/Container";
 import Providers from "./providers";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Nextjs store",
@@ -27,7 +28,7 @@ export default function RootLayout({
       >
         <body className="min-h-full flex flex-col">
           <Providers>
-            <Navbar />
+            <Navbar /> {/* 动态 Navbar 被隔离成 "hole" */}
             <Container>{children}</Container>
           </Providers>
           <Toaster />

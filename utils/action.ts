@@ -502,6 +502,7 @@ export const updateCart = async (cart: Cart) => {
   });
 };
 
+//添加到购物车操作
 export const addToCartAction = async (prevState: any, formData: FormData) => {
   const user = await fetchUserId();
   try {
@@ -515,4 +516,9 @@ export const addToCartAction = async (prevState: any, formData: FormData) => {
   } catch (error) {
     return renderError(error);
   }
+};
+
+//创建订单操作
+export const createOrderAction = async () => {
+  return { message: "The order create Successful!!!" };
 };

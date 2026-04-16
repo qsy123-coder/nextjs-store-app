@@ -25,8 +25,17 @@ const HeroCarousel = () => {
                 <CardContent className="flex items-center justify-center">
                   <Image
                     src={img}
-                    alt="name"
+                    alt={`Hero image ${index + 1}`}
                     className="object-cover w-full h-[24rem]"
+                    // 关键优化 ↓↓↓
+                    priority={index === 0} // 只给第一张图优先加载
+                    loading={index === 0 ? "eager" : "lazy"}
+                    fetchPriority={index === 0 ? "high" : "auto"}
+                    sizes="(max-width: 768px) 100vw, 640px" // 根据实际容器宽度调整
+                    quality={85}
+                    // 强烈建议加上 width + height（防止 CLS），或者改用 fill + position relative
+                    width={640} // 根据你实际图片比例设置
+                    height={384}
                   />
                 </CardContent>
               </Card>

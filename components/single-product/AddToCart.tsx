@@ -43,7 +43,7 @@ const AddToCart = ({ productId }: { productId: string }) => {
             size={"lg"}
             className="mt-8"
           >
-            去登录 去登录 去登录 去登录
+            去登录
           </Button>
         </SignInButton>
       )}
