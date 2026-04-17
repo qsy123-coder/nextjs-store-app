@@ -524,6 +524,7 @@ export const createOrderAction = async () => {
   return { message: "The order create Successful!!!" };
 };
 
+//移除购物车项操作
 export const removeCartItemAction = async (preState: any, formData: FormData) => {
   const user = await fetchUserId();
   try {
@@ -538,6 +539,35 @@ export const removeCartItemAction = async (preState: any, formData: FormData) =>
     await updateCart(cart);
     revalidatePath("/cart");
     return { message: "The item has removed" };
+  } catch (error) {
+    return renderError(error);
+  }
+};
+
+//更新购物车项操作(数据同步更新)
+
+export const updataCartItemAction = async ({
+  amount,
+  cartItemId,
+}: {
+  amount: number;
+  cartItemId: string;
+}) => {
+  const user = await fetchUserId();
+  try {
+    const cart = await fetchOrCreateCart({ userId: user.id, errorOnFailure: true });
+    await db.cartItem.update({
+      where: {
+        id: cartItemId,
+        cartId: cart.id,
+      },
+      data: {
+        amount,
+      },
+    });
+    await updateCart(cart);
+    revalidatePath("/cart");
+    return { message: "Data has update" };
   } catch (error) {
     return renderError(error);
   }

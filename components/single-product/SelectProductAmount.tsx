@@ -43,7 +43,7 @@ const SelectProductAmount = (props: SelectCartItemProps | SelectProductProps) =>
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            {Array.from({ length: isCartItem ? 10 : amount + 10 }, (_, index) => {
+            {Array.from({ length: isCartItem ? amount + 10 : 10 }, (_, index) => {
               const selectValue = (index + 1).toString();
               return (
                 <SelectItem

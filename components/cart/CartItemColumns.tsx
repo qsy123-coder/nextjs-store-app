@@ -6,7 +6,9 @@ import { useState } from "react";
 import SelectProductAmount, { Mod } from "../single-product/SelectProductAmount";
 import FormContainer from "../form/FormContainer";
 import { SubmitButton } from "../form/SubmitButton";
-import { removeCartItemAction } from "@/utils/action";
+import { removeCartItemAction, updataCartItemAction } from "@/utils/action";
+import { Toast } from "radix-ui";
+import { toast } from "sonner";
 
 export const FirstColumn = ({ image, name }: { image: string; name: string }) => {
   return (
@@ -43,8 +45,14 @@ export const SecondColumn = ({
 
 export const ThirdColumn = ({ cartItemId, quanlity }: { cartItemId: string; quanlity: number }) => {
   const [amount, setAmount] = useState(quanlity);
-  const handleAmountChange = async () => {
-    setAmount(amount);
+  const [loading, setLoading] = useState(false);
+  const handleAmountChange = async (value: number) => {
+    setLoading(true);
+    toast("加载中....");
+    setAmount(value);
+    const result = await updataCartItemAction({ amount: value, cartItemId });
+    toast(`${result.message}`);
+    setLoading(false);
   };
   return (
     <div className="flex flex-col gap-8">
@@ -52,7 +60,7 @@ export const ThirdColumn = ({ cartItemId, quanlity }: { cartItemId: string; quan
         mod={Mod.CartItem}
         setAmount={handleAmountChange}
         amount={amount}
-        isLoading={false}
+        isLoading={loading}
       />
       <FormContainer action={removeCartItemAction}>
         <input
