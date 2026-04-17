@@ -523,3 +523,22 @@ export const addToCartAction = async (prevState: any, formData: FormData) => {
 export const createOrderAction = async () => {
   return { message: "The order create Successful!!!" };
 };
+
+export const removeCartItemAction = async (preState: any, formData: FormData) => {
+  const user = await fetchUserId();
+  try {
+    const cartItemId = formData.get("cartItemId") as string;
+    const cart = await fetchOrCreateCart({ userId: user.id, errorOnFailure: true });
+    await db.cartItem.delete({
+      where: {
+        id: cartItemId,
+        cartId: cart.id,
+      },
+    });
+    await updateCart(cart);
+    revalidatePath("/cart");
+    return { message: "The item has removed" };
+  } catch (error) {
+    return renderError(error);
+  }
+};

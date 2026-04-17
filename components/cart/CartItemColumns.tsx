@@ -1,6 +1,12 @@
+"use client";
 import { formatCurrency } from "@/utils/formatCurrency";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import SelectProductAmount, { Mod } from "../single-product/SelectProductAmount";
+import FormContainer from "../form/FormContainer";
+import { SubmitButton } from "../form/SubmitButton";
+import { removeCartItemAction } from "@/utils/action";
 
 export const FirstColumn = ({ image, name }: { image: string; name: string }) => {
   return (
@@ -35,8 +41,32 @@ export const SecondColumn = ({
   );
 };
 
-export const ThirdColumn = () => {
-  return <div>ThirdColumn</div>;
+export const ThirdColumn = ({ cartItemId, quanlity }: { cartItemId: string; quanlity: number }) => {
+  const [amount, setAmount] = useState(quanlity);
+  const handleAmountChange = async () => {
+    setAmount(amount);
+  };
+  return (
+    <div className="flex flex-col gap-8">
+      <SelectProductAmount
+        mod={Mod.CartItem}
+        setAmount={handleAmountChange}
+        amount={amount}
+        isLoading={false}
+      />
+      <FormContainer action={removeCartItemAction}>
+        <input
+          type="hidden"
+          name="cartItemId"
+          value={cartItemId}
+        />
+        <SubmitButton
+          text="Remove"
+          btnSize={"lg"}
+        />
+      </FormContainer>
+    </div>
+  );
 };
 
 export const FourthColumn = ({ price }: { price: number }) => {

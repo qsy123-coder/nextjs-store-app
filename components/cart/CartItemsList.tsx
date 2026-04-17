@@ -25,7 +25,10 @@ const CartItemsList = ({ cartItems }: { cartItems: CartItemWithProduct[] }) => {
                   name={name}
                   productId={productId}
                 />
-                <ThirdColumn />
+                <ThirdColumn
+                  cartItemId={cartItem.id}
+                  quanlity={amount}
+                />
                 <FourthColumn price={price} />
               </div>
             </CardContent>
