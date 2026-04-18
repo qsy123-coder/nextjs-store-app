@@ -478,6 +478,9 @@ export const updateCart = async (cart: Cart) => {
       product: true,
       cart: true,
     },
+    orderBy: {
+      createdAt: "asc",
+    },
   });
 
   for (const cartItem of cartItems) {
@@ -517,11 +520,6 @@ export const addToCartAction = async (prevState: any, formData: FormData) => {
   } catch (error) {
     return renderError(error);
   }
-};
-
-//创建订单操作
-export const createOrderAction = async () => {
-  return { message: "The order create Successful!!!" };
 };
 
 //移除购物车项操作
@@ -568,6 +566,72 @@ export const updataCartItemAction = async ({
     await updateCart(cart);
     revalidatePath("/cart");
     return { message: "Data has update" };
+  } catch (error) {
+    return renderError(error);
+  }
+};
+
+//创建订单操作
+export const createOrderAction = async () => {
+  const user = await fetchUserId();
+
+  try {
+    const cart = await fetchOrCreateCart({ userId: user.id, errorOnFailure: true });
+    const order = await db.order.create({
+      data: {
+        clerkId: user.id,
+        products: cart.numItemsInCart,
+        shipping: cart.shipping,
+        tax: cart.tax,
+        orderTotal: cart.cartTotal,
+        email: user.emailAddresses[0].emailAddress,
+      },
+    });
+    await db.cart.delete({
+      where: {
+        id: cart.id,
+        clerkId: user.id,
+      },
+    });
+
+    redirect("/orders");
+  } catch (error) {
+    return renderError(error);
+  }
+};
+
+//获取管理员订单
+export const fetchAdminOrder = async () => {
+  const admin = await fetchAdminId();
+  try {
+    const orders = await db.order.findMany({
+      where: {
+        isPaid: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    return orders;
+  } catch (error) {
+    return renderError(error);
+  }
+};
+
+//获取用户订单
+export const fetchUsersOrder = async () => {
+  const user = await fetchUserId();
+  try {
+    const orders = await db.order.findMany({
+      where: {
+        clerkId: user.id,
+        isPaid: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    return orders;
   } catch (error) {
     return renderError(error);
   }
