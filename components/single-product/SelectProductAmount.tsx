@@ -32,18 +32,18 @@ const SelectProductAmount = (props: SelectCartItemProps | SelectProductProps) =>
     <div>
       <h4 className="mb-2">Amount:</h4>
       <Select
-        defaultValue={amount.toString()}
+        value={amount.toString()}
         onValueChange={(value) => {
           setAmount(Number(value));
         }}
         disabled={isCartItem ? props.isLoading : false}
       >
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder={amount} />
+          <SelectValue placeholder={amount.toString()} />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            {Array.from({ length: isCartItem ? amount + 10 : 10 }, (_, index) => {
+            {Array.from({ length: isCartItem ? 10 : amount + 10 }, (_, index) => {
               const selectValue = (index + 1).toString();
               return (
                 <SelectItem

@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
-import { formatCurrency } from "@/utils/formatCurrency";
+import { formatCurrency } from "@/utils/format";
 import FavoriteToggleButton from "./FavoriteToggleButton";
 import Link from "next/link";
 const ProductsList = ({ products }: { products: Product[] }) => {

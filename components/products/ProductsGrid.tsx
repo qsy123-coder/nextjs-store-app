@@ -2,7 +2,7 @@ import React from "react";
 import { Product } from "@prisma/client";
 import { Card, CardContent } from "../ui/card";
 import Image from "next/image";
-import { formatCurrency } from "@/utils/formatCurrency";
+import { formatCurrency } from "@/utils/format";
 import Link from "next/link";
 import FavoriteToggleButton from "./FavoriteToggleButton";
 import { fetchFavoriteId } from "@/utils/action";

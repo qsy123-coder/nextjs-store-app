@@ -2,7 +2,7 @@ import { Cart } from "@prisma/client";
 import React from "react";
 import { Card, CardContent, CardTitle } from "../ui/card";
 import { Separator } from "../ui/separator";
-import { formatCurrency } from "@/utils/formatCurrency";
+import { formatCurrency } from "@/utils/format";
 import FormContainer from "../form/FormContainer";
 import { SubmitButton } from "../form/SubmitButton";
 import { createOrderAction } from "@/utils/action";

@@ -574,9 +574,11 @@ export const updataCartItemAction = async ({
 //创建订单操作
 export const createOrderAction = async () => {
   const user = await fetchUserId();
-
+  let cartId: null | string = null;
+  let orderId: null | string = null;
   try {
     const cart = await fetchOrCreateCart({ userId: user.id, errorOnFailure: true });
+    cartId = cart.id;
     const order = await db.order.create({
       data: {
         clerkId: user.id,
@@ -587,52 +589,55 @@ export const createOrderAction = async () => {
         email: user.emailAddresses[0].emailAddress,
       },
     });
+    orderId = order.id;
+
+    await db.order.delete({
+      where: {
+        id: orderId,
+        isPaid: false,
+      },
+    });
+
     await db.cart.delete({
       where: {
         id: cart.id,
         clerkId: user.id,
       },
     });
-
-    redirect("/orders");
   } catch (error) {
     return renderError(error);
   }
+
+  redirect(`/checkout?cartId=${cartId}&orderId=${orderId}`);
 };
 
 //获取管理员订单
 export const fetchAdminOrder = async () => {
   const admin = await fetchAdminId();
-  try {
-    const orders = await db.order.findMany({
-      where: {
-        isPaid: true,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-    return orders;
-  } catch (error) {
-    return renderError(error);
-  }
+
+  const orders = await db.order.findMany({
+    where: {
+      isPaid: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  return orders;
 };
 
 //获取用户订单
-export const fetchUsersOrder = async () => {
+export const fetchUserOrders = async () => {
   const user = await fetchUserId();
-  try {
-    const orders = await db.order.findMany({
-      where: {
-        clerkId: user.id,
-        isPaid: true,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-    return orders;
-  } catch (error) {
-    return renderError(error);
-  }
+
+  const orders = await db.order.findMany({
+    where: {
+      clerkId: user.id,
+      isPaid: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  return orders;
 };

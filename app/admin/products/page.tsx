@@ -10,7 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatCurrency } from "@/utils/formatCurrency";
+import { formatCurrency } from "@/utils/format";
 import FormContainer from "@/components/form/FormContainer";
 import { IconButton } from "@/components/form/SubmitButton";
 import Link from "next/link";

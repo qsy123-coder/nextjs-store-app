@@ -9,7 +9,7 @@ import SelectProductAmount from "@/components/single-product/SelectProductAmount
 import ShareButton from "@/components/single-product/ShareButton";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { fetchSingleProduct, findReviewByUser } from "@/utils/action";
-import { formatCurrency } from "@/utils/formatCurrency";
+import { formatCurrency } from "@/utils/format";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import Image from "next/image";
 import { notFound } from "next/navigation";
