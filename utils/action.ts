@@ -579,6 +579,13 @@ export const createOrderAction = async () => {
   try {
     const cart = await fetchOrCreateCart({ userId: user.id, errorOnFailure: true });
     cartId = cart.id;
+
+    await db.order.deleteMany({
+      where: {
+        clerkId: user.id,
+        isPaid: false,
+      },
+    });
     const order = await db.order.create({
       data: {
         clerkId: user.id,
@@ -590,20 +597,6 @@ export const createOrderAction = async () => {
       },
     });
     orderId = order.id;
-
-    await db.order.delete({
-      where: {
-        id: orderId,
-        isPaid: false,
-      },
-    });
-
-    await db.cart.delete({
-      where: {
-        id: cart.id,
-        clerkId: user.id,
-      },
-    });
   } catch (error) {
     return renderError(error);
   }

@@ -1,11 +1,12 @@
-import Stripe from "stripe";
 import { NextRequest } from "next/server";
 import db from "@/utils/db";
+import Stripe from "stripe";
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
-export const Post = async (req: NextRequest) => {
+export async function POST(req: NextRequest) {
   const requestHeaders = new Headers(req.headers);
   const origin = requestHeaders.get("origin");
   const { cartId, orderId } = await req.json();
+  console.log("Received IDs:", { cartId, orderId });
   const cart = await db.cart.findUnique({
     where: {
       id: cartId,
@@ -27,13 +28,13 @@ export const Post = async (req: NextRequest) => {
     return {
       quantity: cartItem.amount,
       price_data: {
-        currency: "use",
+        currency: "usd",
         product_data: {
           name: cartItem.product.name,
           images: [cartItem.product.image],
         },
+        unit_amount: cartItem.product.price * 100,
       },
-      unit_amount: cartItem.product.price * 100,
     };
   });
   if (!cart || !order) {
@@ -49,13 +50,15 @@ export const Post = async (req: NextRequest) => {
       metadata: { cartId, orderId },
       line_items: line_items,
       mode: "payment",
-      return_url: `${origin}/api/confirm?session_id=SESSION_CHECKOUT_ID`,
+      return_url: `${origin}/api/confirm?session_id={CHECKOUT_SESSION_ID}`,
     });
+    console.log(JSON.stringify(line_items, null, 2));
     return Response.json({ clientSecret: session.client_secret });
   } catch (error) {
+    console.log(error);
     return Response.json(null, {
       status: 500,
       statusText: "server internal error",
     });
   }
-};
+}
