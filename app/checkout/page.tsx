@@ -1,12 +1,12 @@
 "use client";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
-import React, { useCallback } from "react";
+import React, { Suspense, useCallback } from "react";
 import { EmbeddedCheckout, EmbeddedCheckoutProvider } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
-const CheckoutPage = () => {
+const CheckoutPageCompoenent = () => {
   const searchParams = useSearchParams();
   const cartId = searchParams?.get("cartId");
   const orderId = searchParams?.get("orderId");
@@ -28,6 +28,14 @@ const CheckoutPage = () => {
         <EmbeddedCheckout />
       </EmbeddedCheckoutProvider>
     </div>
+  );
+};
+
+const CheckoutPage = () => {
+  return (
+    <Suspense>
+      <CheckoutPageCompoenent />
+    </Suspense>
   );
 };
 
